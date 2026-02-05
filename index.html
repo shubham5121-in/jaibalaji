@@ -215,6 +215,41 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
+        .product-card.selected-card {
+            border: 1px solid var(--primary);
+            background: white;
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15);
+        }
+
+        .selected-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--success);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            z-index: 5;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
         .card-img-container {
             height: 240px;
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
@@ -344,8 +379,24 @@
             cursor: pointer;
         }
 
+        .btn-secondary-admin {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-secondary-admin:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
         .hidden {
-            display: none;
+            display: none !important;
         }
 
         /* Contact Section */
@@ -408,6 +459,38 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
         }
 
+        .map-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Get Directions Button */
+        .btn-directions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-directions:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-directions i {
+            width: 20px;
+            height: 20px;
+        }
+
         /* Footer */
         .site-footer {
             background: rgba(15, 23, 42, 0.98);
@@ -421,11 +504,11 @@
             opacity: 0.7;
         }
 
-        /* Admin Float */
-        .admin-float {
+        /* Admin Float & List Float */
+        .admin-float,
+        .list-float {
             position: fixed;
             bottom: 30px;
-            left: 30px;
             background: white;
             border: 1px solid var(--border);
             width: 60px;
@@ -438,37 +521,312 @@
             justify-content: center;
             font-size: 1.5rem;
             z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .admin-float {
+            left: 30px;
+        }
+
+        .list-float {
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .list-float:hover {
+            transform: scale(1.1);
+        }
+
+        .list-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 2px solid white;
+        }
+
+        /* Add to List Button on Card */
+        .btn-add-list {
+            width: 100%;
+            background: rgba(124, 58, 237, 0.08);
+            color: var(--primary);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            padding: 0.7rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-add-list:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-add-list.in-list {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        /* List Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-gray);
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .list-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .list-item-info {
+            flex: 1;
+        }
+
+        .list-item-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .list-item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Quantity Controls */
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+            background: #f8fafc;
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            width: fit-content;
+        }
+
+        .qty-btn {
+            background: white;
+            border: 1px solid var(--border);
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            color: var(--text-dark);
+        }
+
+        .qty-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(124, 58, 237, 0.05);
+        }
+
+        .qty-val {
+            font-weight: 700;
+            font-size: 0.95rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* List Total Section */
+        .list-total-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-label {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+        }
+
+        .total-amount {
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--primary);
+            font-family: var(--font-heading);
+        }
+
+        /* Card Qty Wrapper */
+        .card-qty-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .card-qty {
+            margin-top: 0;
+            flex: 1;
+            justify-content: space-between;
+            background: rgba(124, 58, 237, 0.05);
+            border: 1px solid rgba(124, 58, 237, 0.1);
+            padding: 0.5rem;
+        }
+
+        .btn-remove-lite {
+            background: #fff1f2;
+            color: #e11d48;
+            border: 1px solid #fecdd3;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-remove-lite:hover {
+            background: #e11d48;
+            color: white;
+            border-color: #e11d48;
+        }
+
+        .btn-remove-item {
+            color: #ef4444;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .empty-list-msg {
+            text-align: center;
+            color: var(--text-gray);
+            padding: 2rem 0;
         }
 
         @media (max-width: 768px) {
-            .header-inner {
-                flex-direction: column;
-                gap: 1rem;
+            .list-float {
+                bottom: 30px;
+                right: 20px;
             }
 
-            .main-nav {
-                flex-wrap: wrap;
-                justify-content: center;
+            .admin-float {
+                bottom: 30px;
+                left: 20px;
             }
+        }
 
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
+        .edit-icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .admin-card form {
-                grid-template-columns: 1fr;
-            }
+        .edit-icon-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
         }
     </style>
 </head>
 
 <body>
-    <!-- Admin Float Button -->
+    <!-- Admin & List Float Buttons -->
     <button id="admin-toggle" class="admin-float" title="Shop Owner Login">🔒</button>
+    <button id="list-toggle" class="list-float" title="My Selected Items">
+        <i data-lucide="list"></i>
+        <div id="list-count-badge" class="list-count">0</div>
+    </button>
+
+    <!-- My List Modal -->
+    <div id="list-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📋 My Selection</h3>
+                <button id="close-list" class="close-modal">&times;</button>
+            </div>
+            <div id="list-items-container">
+                <!-- Items will be injected here -->
+            </div>
+            <div class="list-total-section">
+                <span class="total-label">Estimated Total:</span>
+                <span id="list-total-amount" class="total-amount">₹0</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="site-header">
@@ -484,9 +842,16 @@
                 <a href="#home">Home</a>
                 <a href="#inventory">Inventory</a>
                 <a href="#contact">Contact</a>
-                <a href="tel:+918302453584" class="btn-call">
-                    <i data-lucide="phone"></i> +91 83024-53584
-                </a>
+                <div class="btn-call" style="position: relative;">
+                    <i data-lucide="phone"></i>
+                    <a href="tel:+918302453584" id="header-phone-link" style="color:inherit; text-decoration:none;">
+                        <span id="header-phone-text">+91 83024-53584</span>
+                    </a>
+                    <button id="edit-phone-header" class="edit-icon-btn hidden" title="Edit Number"
+                        style="position: absolute; top: -10px; right: -10px; background: white; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 24px; height: 24px;">
+                        <i data-lucide="edit-2" style="width:12px;height:12px"></i>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>
@@ -520,7 +885,10 @@
                         <input type="file" id="new-image-file" accept="image/*" style="grid-column: span 2;">
                         <button type="submit" class="btn-add">Add Product</button>
                     </form>
-                    <button id="logout-btn">Logout</button>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button id="change-password-btn" class="btn-secondary-admin">Change Password</button>
+                        <button id="logout-btn" class="btn-secondary-admin">Logout</button>
+                    </div>
                 </div>
             </div>
 
@@ -554,16 +922,29 @@
 
                 <div class="info-item">
                     <i data-lucide="phone"></i>
-                    <div>
+                    <div style="position: relative;">
                         <strong>Support</strong>
-                        <p>+91 83024 53584</p>
+                        <p id="contact-phone-text">+91 83024 53584</p>
+                        <button id="edit-phone-contact" class="edit-icon-btn hidden" title="Edit Number"
+                            style="position: absolute; top: -5px; right: -25px; background: white; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 24px; height: 24px;">
+                            <i data-lucide="edit-2" style="width:12px;height:12px"></i>
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps?q=Sabji+Mandi+Kuchaman+City&output=embed" width="100%"
-                    height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div class="map-wrapper">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps?q=Sabji+Mandi+Kuchaman+City&output=embed" width="100%"
+                        height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+
+                <!-- Get Directions Button -->
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Sabji+Mandi+Kuchaman+City+Rajasthan"
+                    target="_blank" class="btn-directions">
+                    <i data-lucide="navigation"></i>
+                    Get Directions
+                </a>
             </div>
         </div>
     </section>
@@ -588,17 +969,52 @@
         ];
 
         let products = JSON.parse(localStorage.getItem('jai_products')) || initialProducts;
+        let myList = JSON.parse(localStorage.getItem('jai_my_list')) || [];
+        let shopPhone = localStorage.getItem('jai_shop_phone') || '+91 83024 53584';
         let isAdmin = false;
 
         const grid = document.getElementById('product-grid');
         const adminPanel = document.getElementById('admin-panel');
 
+        function updateShopPhoneUI() {
+            const cleanPhone = shopPhone.replace(/\D/g, ''); // Extract only digits for tel: link
+            const headerLink = document.getElementById('header-phone-link');
+            const headerText = document.getElementById('header-phone-text');
+            const contactText = document.getElementById('contact-phone-text');
+
+            if (headerLink) headerLink.href = `tel:+${cleanPhone}`;
+            if (headerText) headerText.textContent = shopPhone;
+            if (contactText) contactText.textContent = shopPhone;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function toggleEditIcons(show) {
+            const icons = document.querySelectorAll('.edit-icon-btn');
+            icons.forEach(btn => {
+                if (show) btn.classList.remove('hidden');
+                else btn.classList.add('hidden');
+            });
+        }
+
+        function promptEditPhone() {
+            const newPhone = prompt("Enter new Shop Phone Number:", shopPhone);
+            if (newPhone && newPhone !== shopPhone) {
+                shopPhone = newPhone;
+                localStorage.setItem('jai_shop_phone', shopPhone);
+                updateShopPhoneUI();
+                alert("Shop number updated!");
+            }
+        }
+
         function render() {
             grid.innerHTML = '';
             products.forEach(product => {
+                const listItem = myList.find(item => item.id === product.id);
+                const isInList = !!listItem;
                 const card = document.createElement('div');
-                card.className = 'product-card';
+                card.className = `product-card ${isInList ? 'selected-card' : ''}`;
                 card.innerHTML = `
+                    ${isInList ? `<div class="selected-badge"><i data-lucide="check" style="width:18px;height:18px"></i></div>` : ''}
                     ${isAdmin ? `<button class="delete-btn" onclick="deleteProduct(${product.id})">×</button>` : ''}
                     <div class="card-img-container">
                         <img src="${product.image || 'https://images.unsplash.com/photo-1544724569-5f546fd6dd2d?auto=format&fit=crop&w=500&q=60'}" alt="${product.name}" class="card-img-real">
@@ -607,11 +1023,111 @@
                         <div class="card-category">${product.category}</div>
                         <h4 class="card-title">${product.name}</h4>
                         <div class="card-price">₹${product.price}</div>
+                        
+                        ${!isInList ? `
+                            <button class="btn-add-list" onclick="toggleMyList(${product.id})">
+                                <i data-lucide="plus"></i>
+                                Add to List
+                            </button>
+                        ` : `
+                            <div class="card-qty-wrapper">
+                                <div class="qty-controls card-qty">
+                                    <button class="qty-btn" onclick="updateQuantity(${product.id}, -1)">-</button>
+                                    <span class="qty-val">${listItem.quantity || 1}</span>
+                                    <button class="qty-btn" onclick="updateQuantity(${product.id}, 1)">+</button>
+                                </div>
+                                <button class="btn-remove-lite" onclick="toggleMyList(${product.id})" title="Remove">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </div>
+                        `}
                     </div>
                 `;
                 grid.appendChild(card);
             });
+            updateListCount();
+            lucide.createIcons();
         }
+
+        // List Logic
+        window.toggleMyList = (id) => {
+            const product = products.find(p => p.id === id);
+            const index = myList.findIndex(item => item.id === id);
+
+            if (index === -1) {
+                // When adding, include quantity: 1
+                myList.push({ ...product, quantity: 1 });
+            } else {
+                myList.splice(index, 1);
+            }
+
+            localStorage.setItem('jai_my_list', JSON.stringify(myList));
+            render();
+            renderListModal();
+        };
+
+        window.updateQuantity = (id, change) => {
+            const item = myList.find(i => i.id === id);
+            if (item) {
+                item.quantity = Math.max(1, (item.quantity || 1) + change);
+                localStorage.setItem('jai_my_list', JSON.stringify(myList));
+                render(); // Update cards
+                renderListModal(); // Update modal
+            }
+        };
+
+        function updateListCount() {
+            document.getElementById('list-count-badge').textContent = myList.length;
+        }
+
+        function renderListModal() {
+            const container = document.getElementById('list-items-container');
+            const totalDisplay = document.getElementById('list-total-amount');
+            container.innerHTML = '';
+
+            if (myList.length === 0) {
+                container.innerHTML = '<div class="empty-list-msg">Your list is empty. Add some products!</div>';
+                totalDisplay.textContent = '₹0';
+                return;
+            }
+
+            let total = 0;
+            myList.forEach(item => {
+                const itemTotal = (parseFloat(item.price) || 0) * (item.quantity || 1);
+                total += itemTotal;
+
+                const div = document.createElement('div');
+                div.className = 'list-item';
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="list-item-info">
+                        <div class="list-item-title">${item.name}</div>
+                        <div class="list-item-price">₹${item.price}</div>
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <span class="qty-val">${item.quantity || 1}</span>
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="btn-remove-item" onclick="toggleMyList(${item.id})">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+
+            totalDisplay.textContent = `₹${total.toLocaleString()}`;
+            lucide.createIcons();
+        }
+
+        document.getElementById('list-toggle').addEventListener('click', () => {
+            document.getElementById('list-modal').style.display = 'flex';
+            renderListModal();
+        });
+
+        document.getElementById('close-list').addEventListener('click', () => {
+            document.getElementById('list-modal').style.display = 'none';
+        });
 
         document.getElementById('add-product-form').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -664,10 +1180,12 @@
 
         document.getElementById('admin-toggle').addEventListener('click', () => {
             if (!isAdmin) {
+                const savedPassword = localStorage.getItem('admin_password') || 'admin123';
                 const password = prompt("Enter Password:");
-                if (password === "admin123" || password === "jai123") {
+                if (password === savedPassword || password === "jai123") {
                     isAdmin = true;
                     adminPanel.classList.remove('hidden');
+                    toggleEditIcons(true);
                     alert("Welcome Bhupendra Ji!");
                     render();
                 } else {
@@ -676,11 +1194,39 @@
             }
         });
 
+        // Change Password
+        document.getElementById('change-password-btn').addEventListener('click', () => {
+            const currentPassword = localStorage.getItem('admin_password') || 'admin123';
+            const oldPass = prompt("Enter Current Password:");
+
+            if (oldPass === currentPassword || oldPass === "jai123") {
+                const newPass = prompt("Enter New Password:");
+                if (newPass && newPass.length >= 4) {
+                    const confirmPass = prompt("Confirm New Password:");
+                    if (newPass === confirmPass) {
+                        localStorage.setItem('admin_password', newPass);
+                        alert("Password changed successfully!");
+                    } else {
+                        alert("Passwords don't match!");
+                    }
+                } else {
+                    alert("Password must be at least 4 characters!");
+                }
+            } else {
+                alert("Incorrect current password!");
+            }
+        });
+
         document.getElementById('logout-btn').addEventListener('click', () => {
             isAdmin = false;
             adminPanel.classList.add('hidden');
+            toggleEditIcons(false);
             render();
         });
+
+        // Edit Phone via Pencil
+        document.getElementById('edit-phone-header').addEventListener('click', promptEditPhone);
+        document.getElementById('edit-phone-contact').addEventListener('click', promptEditPhone);
 
         document.getElementById('product-search').addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
@@ -698,6 +1244,8 @@
             });
         });
 
+        // Initial setup
+        updateShopPhoneUI();
         render();
         lucide.createIcons();
     </script>
