@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Balaji Enterprise | DSA Management</title>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- SheetJS for Excel Import -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="brand">
+            <i class="fas fa-university"></i>
+            <div>SBE Config</div>
+        </div>
+
+        <ul class="nav-links">
+            <li class="nav-item active" data-view="entry">
+                <i class="fas fa-edit"></i>
+                <span>Daily Entry</span>
+            </li>
+            <li class="nav-item" data-view="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Owner Dashboard</span>
+            </li>
+        </ul>
+
+        <div style="margin-top:auto; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.1);">
+            <div class="nav-item" onclick="backupData()" style="color:var(--surface-color); opacity:0.8;">
+                <i class="fas fa-cloud-download-alt"></i>
+                <span>Backup Data</span>
+            </div>
+            <div class="nav-item" onclick="document.getElementById('restore-input').click()"
+                style="color:var(--surface-color); opacity:0.8;">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Restore Data</span>
+            </div>
+            <input type="file" id="restore-input" style="display:none;" accept=".json" onchange="restoreData(this)">
+        </div>
+
+        <div style="font-size:0.7rem; opacity:0.5; margin-top:1rem; text-align:center;">
+            &copy; 2026 SBE Systems
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="page-title" id="page-title">Dashboard</div>
+            <div class="user-profile" style="display:flex; align-items:center; gap:0.75rem;">
+                <div style="text-align:right;">
+                    <div style="font-weight:600; font-size:0.9rem;">Admin User</div>
+                    <div style="font-size:0.75rem; color:var(--text-secondary);">Owner</div>
+                </div>
+                <div
+                    style="width:40px; height:40px; background:linear-gradient(135deg, var(--accent-color), var(--accent-hover)); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:1rem; box-shadow:var(--shadow-md);">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Content Injected Here -->
+        <div id="content-area"></div>
+    </div>
+
+    <!-- Application Logic -->
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
